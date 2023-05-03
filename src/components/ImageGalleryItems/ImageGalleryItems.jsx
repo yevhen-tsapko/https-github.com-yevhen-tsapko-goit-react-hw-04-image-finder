@@ -21,5 +21,6 @@ export const ImageGalleryItems = ({ galleryItems, getLargeImage }) => {
   );
 };
 ImageGalleryItems.propTypes = {
-  searchItem: PropTypes.array,
+  galleryItems: PropTypes.array.isRequired,
+  getLargeImage: PropTypes.func.isRequired,
 };

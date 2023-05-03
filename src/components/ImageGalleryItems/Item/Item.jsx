@@ -18,6 +18,7 @@ export const Item = ({
   );
 };
 Item.propTypes = {
+  getLargeImage: PropTypes.func.isRequired,
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
