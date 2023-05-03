@@ -21,6 +21,7 @@ export class App extends Component {
 
   async componentDidUpdate(_, prevState) {
     const { page, searchItem } = this.state;
+    console.log('prevState.page', prevState.page, 'page', page);
     if (prevState.searchItem !== searchItem || prevState.page !== page) {
       this.isLoaderVisibility(true);
       await this.fetchItems(page, searchItem);
