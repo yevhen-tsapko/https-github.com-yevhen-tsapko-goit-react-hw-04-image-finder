@@ -29,7 +29,6 @@ export class App extends Component {
       this.isLoaderVisibility(true);
       await this.fetchItems(page, searchItem);
       this.isLoaderVisibility(false);
-      this.handleScroll(page);
     }
   }
 
@@ -45,7 +44,7 @@ export class App extends Component {
     }
     this.setState(({ galleryItems }) => ({
       galleryItems: [...galleryItems, ...data.hits],
-    }));
+    }), () => this.handleScroll(page));
   };
 
   loadMore = () => {
