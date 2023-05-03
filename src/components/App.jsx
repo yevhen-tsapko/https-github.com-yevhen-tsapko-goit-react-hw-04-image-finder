@@ -9,7 +9,7 @@ import { ImageGalleryItems } from 'components/ImageGalleryItems/ImageGalleryItem
 import { Loader } from './Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 import { SearchBar } from 'components/Searchbar/Searchbar';
-import { fetchPage } from 'components/servise/fetchPage';
+import { fetchPage } from 'servise/fetchPage';
 
 export class App extends Component {
   state = {
@@ -42,14 +42,17 @@ export class App extends Component {
         autoClose: 5000,
       });
     }
-    this.setState(({ galleryItems }) => ({
-      galleryItems: [...galleryItems, ...data.hits],
-    }), () => this.handleScroll(page));
+    this.setState(
+      ({ galleryItems }) => ({
+        galleryItems: [...galleryItems, ...data.hits],
+      }),
+      () => this.handleScroll(page)
+    );
   };
 
   loadMore = () => {
     this.setState(prev => ({
-      page: prev.page + 1
+      page: prev.page + 1,
     }));
   };
 
