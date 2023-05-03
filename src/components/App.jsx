@@ -1,13 +1,16 @@
-import { Component } from 'react';
-import { SearchBar } from 'components/Searchbar/Searchbar';
-import { ImageGalleryItems } from 'components/ImageGalleryItems/ImageGalleryItems';
-import { fetchPage } from 'components/servise/fetchPage';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import { AppBlock } from './App.styled';
 import { Button } from './Button/Button';
+import { Component } from 'react';
+import { ImageGalleryItems } from 'components/ImageGalleryItems/ImageGalleryItems';
 import { Loader } from './Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { AppBlock } from './App.styled';
+import { SearchBar } from 'components/Searchbar/Searchbar';
+import { fetchPage } from 'components/servise/fetchPage';
+
 export class App extends Component {
   state = {
     galleryItems: [],
@@ -29,6 +32,7 @@ export class App extends Component {
       this.handleScroll(page);
     }
   }
+
   fetchItems = async (page, searchItem) => {
     const { data } = await fetchPage(page, searchItem).catch(err => {
       toast.error(`Somthing went wrong :  ${err.message}`);
@@ -43,26 +47,32 @@ export class App extends Component {
       galleryItems: [...galleryItems, ...data.hits],
     }));
   };
+
   loadMore = () => {
     this.setState(prev => ({
-      page: (prev.page += 1),
+      page: prev.page + 1
     }));
   };
+
   isLoaderVisibility = value => {
     this.setState({ visibleLoader: value });
   };
+
   getLargeImage = (largeImageURL, tags) => {
     this.toggleModal();
     this.setState({ largeImageURL, tags });
   };
+
   toggleModal = () =>
     this.setState(({ showModal }) => ({ showModal: !showModal }));
+
   getSearchItem = searchItem => {
     this.setState(prev => {
       if (searchItem !== prev.searchItem)
         return { page: 1, galleryItems: [], searchItem };
     });
   };
+
   handleScroll = page => {
     if (page > 1) {
       window.scrollBy({
