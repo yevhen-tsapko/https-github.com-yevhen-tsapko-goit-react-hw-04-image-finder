@@ -23,6 +23,10 @@ export class SearchBar extends Component {
     if (searchItem === '') {
       toast.warning('Enter something, please', {
         position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        progress: 0,
+        pauseOnFocusLoss: 'false',
       });
       return;
     }

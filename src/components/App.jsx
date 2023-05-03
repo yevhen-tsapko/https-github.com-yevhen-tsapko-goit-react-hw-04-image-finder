@@ -38,7 +38,10 @@ export class App extends Component {
     if (!data.hits.length) {
       toast.error('Nothing was found for your request', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
+        closeOnClick: true,
+        progress: 0,
+        pauseOnFocusLoss: 'false',
       });
     }
     this.setState(
@@ -97,7 +100,18 @@ export class App extends Component {
             <Button loadMore={this.loadMore} />
           </>
         )}
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={true}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         {this.state.showModal && (
           <Modal
             largeImage={this.state.largeImageURL}
