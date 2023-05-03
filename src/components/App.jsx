@@ -21,12 +21,12 @@ export class App extends Component {
 
   async componentDidUpdate(_, prevState) {
     const { page, searchItem } = this.state;
-    if (prevState.searchItem === searchItem && prevState.page === page) return;
-
-    this.isLoaderVisibility(true);
-    await this.fetchItems(page, searchItem);
-    this.isLoaderVisibility(false);
-    this.handleScroll(page);
+    if (prevState.searchItem !== searchItem || prevState.page !== page) {
+      this.isLoaderVisibility(true);
+      await this.fetchItems(page, searchItem);
+      this.isLoaderVisibility(false);
+      this.handleScroll(page);
+    }
   }
   fetchItems = async (page, searchItem) => {
     const { data } = await fetchPage(page, searchItem).catch(err => {
