@@ -17,37 +17,33 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [largeImageURL, setLargeImageURL] = useState(null);
   const [tags, setTags] = useState(null);
-  const fetchItems = async (page, searchItem) => {
-    const { data } = await fetchPage(page, searchItem).catch(err => {
-      toast.error(`Somthing went wrong :  ${err.message}`);
-    });
-    if (!data.hits.length) {
-      toast.error('Nothing was found for your request', {
-        position: 'top-center',
-        autoClose: 3000,
-        closeOnClick: true,
-        progress: 0,
-        pauseOnFocusLoss: 'false',
-      });
-    }
-    setGalleryItems([...galleryItems, ...data.hits]);
-    handleScroll(page);
-  };
+
   useEffect(() => {
+    const fetchItems = async (page, searchItem) => {
+      const { data } = await fetchPage(page, searchItem).catch(err => {
+        toast.error(`Somthing went wrong :  ${err.message}`);
+      });
+      if (!data.hits.length) {
+        toast.error('Nothing was found for your request', {
+          position: 'top-center',
+          autoClose: 3000,
+          closeOnClick: true,
+          progress: 0,
+          pauseOnFocusLoss: 'false',
+        });
+      }
+      setGalleryItems([...galleryItems, ...data.hits]);
+      handleScroll(page);
+    };
     if (searchItem) {
-      isLoaderVisibility(true);
+      setVisibleLoader(true);
       fetchItems(page, searchItem);
-      isLoaderVisibility(false);
+      setVisibleLoader(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchItem, page]);
 
   const loadMore = () => {
     setPage(prev => prev + 1);
-  };
-
-  const isLoaderVisibility = value => {
-    setVisibleLoader(value);
   };
 
   const getLargeImage = (largeImageURL, tags) => {
